@@ -145,7 +145,16 @@ function detail(handle){
  const metaDescription=((p.description||'Original artwork by Samuel Nagler').replace(/\s+/g,' ').trim()).slice(0,155);
  setMeta(p.title+' | Samuel Nagler',metaDescription,p.images[0]||site.hero);
  const paragraphs=(p.description||'').split(/\n+/).filter(Boolean).map(x=>`<p>${x}</p>`).join('');
- app.innerHTML=`<section class="detail"><div class="detail-media">${p.images.map((im,i)=>`<img loading="${i?'lazy':'eager'}" src="${webAsset(im)}" alt="${p.title}${i?' – view '+(i+1):''}">`).join('')}</div><div class="detail-copy"><a href="${de?'/de/collections/prints':'/collections/prints'}">← ${t.back}</a><h1>${p.title}</h1><div class="price">${money(p.price)}</div><div class="status">${p.available?t.available:t.sold}</div><div class="description">${paragraphs}</div><a class="link-btn" href="mailto:info@samuelnagler.com?subject=${encodeURIComponent((de?'Anfrage zu ':'Inquiry about ')+p.title)}">${t.inquire}</a></div></section>`;
+ const gallery=`<div class="product-gallery" data-product-gallery tabindex="0" aria-label="${de?'Bildergalerie':'Image gallery'} ${p.title}">
+   <div class="product-gallery-stage">
+     ${p.images.map((im,i)=>`<figure class="product-gallery-slide ${i===0?'active':''}" data-index="${i}">
+       <img ${i===0?`src="${webAsset(im)}"`:`data-src="${webAsset(im)}"`} alt="${p.title}${i?' – '+(de?'Ansicht ':'view ')+(i+1):''}" draggable="false">
+     </figure>`).join('')}
+     ${p.images.length>1?`<button class="product-prev" type="button" aria-label="${t.prev}">‹</button><button class="product-next" type="button" aria-label="${t.next}">›</button>`:''}
+   </div>
+   ${p.images.length>1?`<div class="product-gallery-counter"><span>1</span> / ${p.images.length}</div>`:''}
+ </div>`;
+ app.innerHTML=`<section class="detail"><div class="detail-media">${gallery}</div><div class="detail-copy"><a href="${de?'/de/collections/prints':'/collections/prints'}">← ${t.back}</a><h1>${p.title}</h1><div class="price">${money(p.price)}</div><div class="status">${p.available?t.available:t.sold}</div><div class="description">${paragraphs}</div><a class="link-btn" href="mailto:info@samuelnagler.com?subject=${encodeURIComponent((de?'Anfrage zu ':'Inquiry about ')+p.title)}">${t.inquire}</a></div></section>`;
 }
 function contact(){
  setMeta(
@@ -202,6 +211,24 @@ function initCarousels(){
    loadSlide(1);
    c.querySelector('.slide-prev').addEventListener('click',()=>show(i-1));
    c.querySelector('.slide-next').addEventListener('click',()=>show(i+1));
+ });
+ document.querySelectorAll('[data-product-gallery]').forEach(g=>{
+   const slides=[...g.querySelectorAll('.product-gallery-slide')],count=g.querySelector('.product-gallery-counter span');let i=0,touchStart=0;
+   const load=k=>{const img=slides[k]?.querySelector('img[data-src]');if(img){img.src=img.dataset.src;img.removeAttribute('data-src')}};
+   const show=n=>{
+     if(!slides.length)return;
+     i=(n+slides.length)%slides.length;load(i);load((i+1)%slides.length);load((i-1+slides.length)%slides.length);
+     slides.forEach((slide,k)=>slide.classList.toggle('active',k===i));
+     if(count)count.textContent=i+1;
+   };
+   if(slides.length>1){
+     load(1);
+     g.querySelector('.product-prev')?.addEventListener('click',()=>show(i-1));
+     g.querySelector('.product-next')?.addEventListener('click',()=>show(i+1));
+     g.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){e.preventDefault();show(i-1)}if(e.key==='ArrowRight'){e.preventDefault();show(i+1)}});
+     g.addEventListener('touchstart',e=>{touchStart=e.changedTouches[0].clientX},{passive:true});
+     g.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-touchStart;if(Math.abs(d)>45)show(d>0?i-1:i+1)},{passive:true});
+   }
  });
 }
 function render(){if(path==='/'||path==='/de')home();else if(path.includes('/collections/prints')||path.includes('/collections/all')||path.includes('/collections/frontpage'))works();else if(path.includes('/pages/contact'))contact();else if(path.endsWith('/impressum')||path==='/impressum')imprint();else if(path.endsWith('/datenschutz')||path==='/datenschutz'||path.includes('/policies/privacy-policy'))privacy();else{const m=path.match(/\/products\/([^/]+)$/);m?detail(m[1]):notfound()}fixLinks();initCarousels()}
