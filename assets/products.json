@@ -3,9 +3,9 @@
     {
       "title": "Royalty",
       "handle": "royalty",
-      "description": "Duo Series 10 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Duo Series 10 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": false,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/royalty/1.jpg",
         "/assets/artworks/royalty/2.jpg",
@@ -16,14 +16,15 @@
         "/assets/artworks/royalty/7.jpg",
         "/assets/artworks/royalty/8.jpg"
       ],
-      "publishedAt": "2025-08-28T15:08:59+02:00"
+      "publishedAt": "2025-08-28T15:08:59+02:00",
+      "descriptionDe": "Duo Series 10 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Majesty",
       "handle": "majesty",
-      "description": "Duo Series 9 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Duo Series 9 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": false,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/majesty/1.jpg",
         "/assets/artworks/majesty/2.jpg",
@@ -34,14 +35,15 @@
         "/assets/artworks/majesty/7.jpg",
         "/assets/artworks/majesty/8.jpg"
       ],
-      "publishedAt": "2025-08-28T15:08:17+02:00"
+      "publishedAt": "2025-08-28T15:08:17+02:00",
+      "descriptionDe": "Duo Series 9 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Cherry",
       "handle": "cherry",
-      "description": "Duo Series 8 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Duo Series 8 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/cherry/1.jpg",
         "/assets/artworks/cherry/2.jpg",
@@ -52,14 +54,15 @@
         "/assets/artworks/cherry/7.jpg",
         "/assets/artworks/cherry/8.jpg"
       ],
-      "publishedAt": "2025-08-28T14:58:28+02:00"
+      "publishedAt": "2025-08-28T14:58:28+02:00",
+      "descriptionDe": "Duo Series 8 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Blossom",
       "handle": "blossom",
-      "description": "Duo Series 7 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Duo Series 7 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/blossom/1.jpg",
         "/assets/artworks/blossom/2.jpg",
@@ -70,14 +73,15 @@
         "/assets/artworks/blossom/7.jpg",
         "/assets/artworks/blossom/8.jpg"
       ],
-      "publishedAt": "2025-08-28T14:57:53+02:00"
+      "publishedAt": "2025-08-28T14:57:53+02:00",
+      "descriptionDe": "Duo Series 7 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Rise",
       "handle": "rise",
-      "description": "Duo Series 6 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Duo Series 6 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/rise/1.jpg",
         "/assets/artworks/rise/2.jpg",
@@ -88,14 +92,15 @@
         "/assets/artworks/rise/7.jpg",
         "/assets/artworks/rise/8.jpg"
       ],
-      "publishedAt": "2025-08-28T14:53:53+02:00"
+      "publishedAt": "2025-08-28T14:53:53+02:00",
+      "descriptionDe": "Duo Series 6 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Dawn",
       "handle": "dawn",
-      "description": "Duo Series 5 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Duo Series 5 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/dawn/1.jpg",
         "/assets/artworks/dawn/2.jpg",
@@ -106,14 +111,15 @@
         "/assets/artworks/dawn/7.jpg",
         "/assets/artworks/dawn/8.jpg"
       ],
-      "publishedAt": "2025-08-28T14:52:48+02:00"
+      "publishedAt": "2025-08-28T14:52:48+02:00",
+      "descriptionDe": "Duo Series 5 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Heat",
       "handle": "heat",
-      "description": "Duo Series 04 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Duo Series 04 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/heat/1.jpg",
         "/assets/artworks/heat/2.jpg",
@@ -124,14 +130,15 @@
         "/assets/artworks/heat/7.jpg",
         "/assets/artworks/heat/8.jpg"
       ],
-      "publishedAt": "2025-08-28T14:43:20+02:00"
+      "publishedAt": "2025-08-28T14:43:20+02:00",
+      "descriptionDe": "Duo Series 04 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Frost",
       "handle": "frost",
-      "description": "Duo Series 03 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Duo Series 03 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/frost/1.jpg",
         "/assets/artworks/frost/2.jpg",
@@ -142,14 +149,15 @@
         "/assets/artworks/frost/7.jpg",
         "/assets/artworks/frost/8.jpg"
       ],
-      "publishedAt": "2025-08-28T14:42:30+02:00"
+      "publishedAt": "2025-08-28T14:42:30+02:00",
+      "descriptionDe": "Duo Series 03 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Electron",
       "handle": "electron",
-      "description": "Duo Series 02 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Duo Series 02 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/electron/1.jpg",
         "/assets/artworks/electron/2.jpg",
@@ -160,14 +168,15 @@
         "/assets/artworks/electron/7.jpg",
         "/assets/artworks/electron/8.jpg"
       ],
-      "publishedAt": "2025-08-28T14:39:01+02:00"
+      "publishedAt": "2025-08-28T14:39:01+02:00",
+      "descriptionDe": "Duo Series 02 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Proton",
       "handle": "proton",
-      "description": "Duo Series 01 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Duo Series 01 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/proton/1.jpg",
         "/assets/artworks/proton/2.jpg",
@@ -178,427 +187,458 @@
         "/assets/artworks/proton/7.jpg",
         "/assets/artworks/proton/8.jpg"
       ],
-      "publishedAt": "2025-08-28T14:31:50+02:00"
+      "publishedAt": "2025-08-28T14:31:50+02:00",
+      "descriptionDe": "Duo Series 01 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Nil",
       "handle": "nil",
-      "description": "Original Series 10 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Original Series 10 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": false,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/nil/1.jpg",
         "/assets/artworks/nil/2.jpg",
         "/assets/artworks/nil/3.jpg",
         "/assets/artworks/nil/4.jpg"
       ],
-      "publishedAt": "2025-08-09T17:01:49+02:00"
+      "publishedAt": "2025-08-09T17:01:49+02:00",
+      "descriptionDe": "Original Series 10 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Animals",
       "handle": "animals",
-      "description": "Original Series 09 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Original Series 09 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/animals/1.jpg",
         "/assets/artworks/animals/2.jpg",
         "/assets/artworks/animals/3.jpg",
         "/assets/artworks/animals/4.jpg"
       ],
-      "publishedAt": "2025-08-09T17:00:51+02:00"
+      "publishedAt": "2025-08-09T17:00:51+02:00",
+      "descriptionDe": "Original Series 09 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Ancestor",
       "handle": "ancestors",
-      "description": "Original Series 08 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Original Series 08 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/ancestors/1.jpg",
         "/assets/artworks/ancestors/2.jpg",
         "/assets/artworks/ancestors/3.jpg",
         "/assets/artworks/ancestors/4.jpg"
       ],
-      "publishedAt": "2025-08-09T16:59:30+02:00"
+      "publishedAt": "2025-08-09T16:59:30+02:00",
+      "descriptionDe": "Original Series 08 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Confrontation",
       "handle": "confrontation",
-      "description": "Original Series 07 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Original Series 07 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/confrontation/1.jpg",
         "/assets/artworks/confrontation/2.jpg",
         "/assets/artworks/confrontation/3.jpg",
         "/assets/artworks/confrontation/4.jpg"
       ],
-      "publishedAt": "2025-08-09T16:54:31+02:00"
+      "publishedAt": "2025-08-09T16:54:31+02:00",
+      "descriptionDe": "Original Series 07 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Landing",
       "handle": "landing",
-      "description": "Original Series 06 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Original Series 06 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/landing/1.jpg",
         "/assets/artworks/landing/2.jpg",
         "/assets/artworks/landing/3.jpg",
         "/assets/artworks/landing/4.jpg"
       ],
-      "publishedAt": "2025-08-09T16:34:38+02:00"
+      "publishedAt": "2025-08-09T16:34:38+02:00",
+      "descriptionDe": "Original Series 06 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Clouds",
       "handle": "clouds",
-      "description": "Original Series 05 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Original Series 05 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/clouds/1.jpg",
         "/assets/artworks/clouds/2.jpg",
         "/assets/artworks/clouds/3.jpg",
         "/assets/artworks/clouds/4.jpg"
       ],
-      "publishedAt": "2025-08-09T16:26:31+02:00"
+      "publishedAt": "2025-08-09T16:26:31+02:00",
+      "descriptionDe": "Original Series 05 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Diamantus",
       "handle": "diamantus",
-      "description": "Original Series 04 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Original Series 04 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/diamantus/1.jpg",
         "/assets/artworks/diamantus/2.jpg",
         "/assets/artworks/diamantus/3.jpg",
         "/assets/artworks/diamantus/4.jpg"
       ],
-      "publishedAt": "2025-08-09T16:24:09+02:00"
+      "publishedAt": "2025-08-09T16:24:09+02:00",
+      "descriptionDe": "Original Series 04 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Dissonance",
       "handle": "dissonance",
-      "description": "Original Series 03 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Original Series 03 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": false,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/dissonance/1.jpg",
         "/assets/artworks/dissonance/2.jpg",
         "/assets/artworks/dissonance/3.jpg",
         "/assets/artworks/dissonance/4.jpg"
       ],
-      "publishedAt": "2025-08-09T16:13:16+02:00"
+      "publishedAt": "2025-08-09T16:13:16+02:00",
+      "descriptionDe": "Original Series 03 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Sunset",
       "handle": "sunset",
-      "description": "Original Series 02 / 10\n\nMixed media on canvas \n\n50 cm x 40 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Original Series 02 / 10\nMixed media on canvas\n50 cm x 40 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": false,
-      "price": 97400,
+      "price": 99900,
       "images": [
         "/assets/artworks/sunset/1.jpg",
         "/assets/artworks/sunset/2.jpg",
         "/assets/artworks/sunset/3.jpg",
         "/assets/artworks/sunset/4.jpg"
       ],
-      "publishedAt": "2025-08-09T16:04:48+02:00"
+      "publishedAt": "2025-08-09T16:04:48+02:00",
+      "descriptionDe": "Original Series 02 / 10\nMixed media on canvas\n50 cm x 40 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Beginning",
       "handle": "beginning",
-      "description": "Original Series 01 / 10\n\nMixed media on canvas \n\n50 cm x 40 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Original Series 01 / 10\nMixed media on canvas\n50 cm x 40 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 97400,
+      "price": 99900,
       "images": [
         "/assets/artworks/beginning/1.jpg",
         "/assets/artworks/beginning/2.jpg",
         "/assets/artworks/beginning/3.jpg",
         "/assets/artworks/beginning/4.jpg"
       ],
-      "publishedAt": "2025-08-09T16:01:31+02:00"
+      "publishedAt": "2025-08-09T16:01:31+02:00",
+      "descriptionDe": "Original Series 01 / 10\nMixed media on canvas\n50 cm x 40 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Aurum",
       "handle": "aurum",
-      "description": "Monochrome Series 10 / 10\n\nPainted using only one color \n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Monochrome Series 10 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/aurum/1.jpg",
         "/assets/artworks/aurum/2.jpg",
         "/assets/artworks/aurum/3.jpg",
         "/assets/artworks/aurum/4.jpg"
       ],
-      "publishedAt": "2025-08-03T22:02:20+02:00"
+      "publishedAt": "2025-08-03T22:02:20+02:00",
+      "descriptionDe": "Monochrome Series 10 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Argentum",
       "handle": "argentum",
-      "description": "Monochrome Series 09 / 10\n\nPainted using only one color \n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Monochrome Series 09 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/argentum/1.jpg",
         "/assets/artworks/argentum/2.jpg",
         "/assets/artworks/argentum/3.jpg",
         "/assets/artworks/argentum/4.jpg"
       ],
-      "publishedAt": "2025-08-03T22:01:18+02:00"
+      "publishedAt": "2025-08-03T22:01:18+02:00",
+      "descriptionDe": "Monochrome Series 09 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Cuprum",
       "handle": "aereus",
-      "description": "Monochrome Series 08 / 10\n\nPainted using only one color \n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Monochrome Series 08 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/aereus/1.jpg",
         "/assets/artworks/aereus/2.jpg",
         "/assets/artworks/aereus/3.jpg",
         "/assets/artworks/aereus/4.jpg"
       ],
-      "publishedAt": "2025-08-03T22:00:28+02:00"
+      "publishedAt": "2025-08-03T22:00:28+02:00",
+      "descriptionDe": "Monochrome Series 08 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Lapis",
       "handle": "lapis",
-      "description": "Monochrome Series 07 / 10\n\nPainted using only one color \n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Monochrome Series 07 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": false,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/lapis/1.jpg",
         "/assets/artworks/lapis/2.jpg",
         "/assets/artworks/lapis/3.jpg",
         "/assets/artworks/lapis/4.jpg"
       ],
-      "publishedAt": "2025-08-03T21:55:39+02:00"
+      "publishedAt": "2025-08-03T21:55:39+02:00",
+      "descriptionDe": "Monochrome Series 07 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Aura",
       "handle": "aqua",
-      "description": "Monochrome Series 06 / 10\n\nPainted using only one color \n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Monochrome Series 06 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/aqua/1.jpg",
         "/assets/artworks/aqua/2.jpg",
         "/assets/artworks/aqua/3.jpg",
         "/assets/artworks/aqua/4.jpg"
       ],
-      "publishedAt": "2025-08-03T21:54:17+02:00"
+      "publishedAt": "2025-08-03T21:54:17+02:00",
+      "descriptionDe": "Monochrome Series 06 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Planta",
       "handle": "planta",
-      "description": "Monochrome Series 5 / 10\n\nPainted using only one color \n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Monochrome Series 5 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/planta/1.jpg",
         "/assets/artworks/planta/2.jpg",
         "/assets/artworks/planta/3.jpg",
         "/assets/artworks/planta/4.jpg"
       ],
-      "publishedAt": "2025-08-03T21:50:36+02:00"
+      "publishedAt": "2025-08-03T21:50:36+02:00",
+      "descriptionDe": "Monochrome Series 5 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Solis",
       "handle": "aeris",
-      "description": "Monochrome Series 04 / 10\n\nPainted using only one color \n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Monochrome Series 04 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/aeris/1.jpg",
         "/assets/artworks/aeris/2.jpg",
         "/assets/artworks/aeris/3.jpg",
         "/assets/artworks/aeris/4.jpg"
       ],
-      "publishedAt": "2025-08-03T21:48:25+02:00"
+      "publishedAt": "2025-08-03T21:48:25+02:00",
+      "descriptionDe": "Monochrome Series 04 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Aqua",
       "handle": "oceanus",
-      "description": "Monochrome Series 03 / 10\n\nPainted using only one color \n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Monochrome Series 03 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/oceanus/1.jpg",
         "/assets/artworks/oceanus/2.jpg",
         "/assets/artworks/oceanus/3.jpg",
         "/assets/artworks/oceanus/4.jpg"
       ],
-      "publishedAt": "2025-08-03T21:46:47+02:00"
+      "publishedAt": "2025-08-03T21:46:47+02:00",
+      "descriptionDe": "Monochrome Series 03 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Florere",
       "handle": "florere",
-      "description": "Monochrome Series 02 / 10\n\nPainted using only one color \n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Monochrome Series 02 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/florere/1.jpg",
         "/assets/artworks/florere/2.jpg",
         "/assets/artworks/florere/3.jpg",
         "/assets/artworks/florere/4.jpg"
       ],
-      "publishedAt": "2025-08-03T21:44:38+02:00"
+      "publishedAt": "2025-08-03T21:44:38+02:00",
+      "descriptionDe": "Monochrome Series 02 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Flamma",
       "handle": "ignis",
-      "description": "Monochrome Series 01 / 10\n\nPainted using only one color \n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "Monochrome Series 01 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/ignis/1.jpg",
         "/assets/artworks/ignis/2.jpg",
         "/assets/artworks/ignis/3.jpg",
         "/assets/artworks/ignis/4.jpg"
       ],
-      "publishedAt": "2025-08-03T21:36:39+02:00"
+      "publishedAt": "2025-08-03T21:36:39+02:00",
+      "descriptionDe": "Monochrome Series 01 / 10\nPainted using only one color\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Potsdam",
       "handle": "potsda",
-      "description": "LOVE Series 10 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "LOVE Series 10 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/potsda/1.jpg",
         "/assets/artworks/potsda/2.jpg",
         "/assets/artworks/potsda/3.jpg",
         "/assets/artworks/potsda/4.jpg"
       ],
-      "publishedAt": "2025-05-07T14:28:53+02:00"
+      "publishedAt": "2025-05-07T14:28:53+02:00",
+      "descriptionDe": "LOVE Series 10 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Spring",
       "handle": "spri",
-      "description": "LOVE Series 09 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "LOVE Series 09 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/spri/1.jpg",
         "/assets/artworks/spri/2.jpg",
         "/assets/artworks/spri/3.jpg",
         "/assets/artworks/spri/4.jpg"
       ],
-      "publishedAt": "2025-05-07T14:27:42+02:00"
+      "publishedAt": "2025-05-07T14:27:42+02:00",
+      "descriptionDe": "LOVE Series 09 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Valentine",
       "handle": "valenti",
-      "description": "LOVE Series 08 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "LOVE Series 08 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/valenti/1.jpg",
         "/assets/artworks/valenti/2.jpg",
         "/assets/artworks/valenti/3.jpg",
         "/assets/artworks/valenti/4.jpg"
       ],
-      "publishedAt": "2025-05-07T14:26:43+02:00"
+      "publishedAt": "2025-05-07T14:26:43+02:00",
+      "descriptionDe": "LOVE Series 08 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Strawberry",
       "handle": "strawb",
-      "description": "LOVE Series 07 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "LOVE Series 07 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/strawb/1.jpg",
         "/assets/artworks/strawb/2.jpg",
         "/assets/artworks/strawb/3.jpg",
         "/assets/artworks/strawb/4.jpg"
       ],
-      "publishedAt": "2025-05-07T14:21:59+02:00"
+      "publishedAt": "2025-05-07T14:21:59+02:00",
+      "descriptionDe": "LOVE Series 07 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Sea",
       "handle": "sea",
-      "description": "LOVE Series 06 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "LOVE Series 06 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/sea/1.jpg",
         "/assets/artworks/sea/2.jpg",
         "/assets/artworks/sea/3.jpg",
         "/assets/artworks/sea/4.jpg"
       ],
-      "publishedAt": "2025-05-07T13:52:40+02:00"
+      "publishedAt": "2025-05-07T13:52:40+02:00",
+      "descriptionDe": "LOVE Series 06 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Deep Sea",
       "handle": "deep-sea",
-      "description": "LOVE Series 05 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "LOVE Series 05 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": false,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/deep-sea/1.jpg",
         "/assets/artworks/deep-sea/2.jpg",
         "/assets/artworks/deep-sea/3.jpg",
         "/assets/artworks/deep-sea/4.jpg"
       ],
-      "publishedAt": "2025-05-07T13:49:32+02:00"
+      "publishedAt": "2025-05-07T13:49:32+02:00",
+      "descriptionDe": "LOVE Series 05 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)"
     },
     {
       "title": "Midas",
       "handle": "midas",
-      "description": "LOVE Series 04 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "LOVE Series 04 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/midas/1.jpg",
         "/assets/artworks/midas/2.jpg",
         "/assets/artworks/midas/3.jpg",
         "/assets/artworks/midas/4.jpg"
       ],
-      "publishedAt": "2025-04-16T23:15:42+02:00"
+      "publishedAt": "2025-04-16T23:15:42+02:00",
+      "descriptionDe": "LOVE Serie 04 / 10\nMixed media auf Leinwand\n100 cm x 80 cm"
     },
     {
       "title": "Storm",
       "handle": "moon",
-      "description": "LOVE Series 03 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "LOVE Series 03 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/moon/1.jpg",
         "/assets/artworks/moon/2.jpg",
         "/assets/artworks/moon/3.jpg",
         "/assets/artworks/moon/4.jpg"
       ],
-      "publishedAt": "2025-04-16T23:13:21+02:00"
+      "publishedAt": "2025-04-16T23:13:21+02:00",
+      "descriptionDe": "LOVE Serie 03 / 10\nMixed media auf Leinwand\n100 cm x 80 cm"
     },
     {
       "title": "Sun",
       "handle": "sun",
-      "description": "LOVE Series 02 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "LOVE Series 02 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/sun/1.jpg",
         "/assets/artworks/sun/2.jpg",
         "/assets/artworks/sun/3.jpg",
         "/assets/artworks/sun/4.jpg"
       ],
-      "publishedAt": "2025-04-16T23:10:29+02:00"
+      "publishedAt": "2025-04-16T23:10:29+02:00",
+      "descriptionDe": "LOVE Serie 02 / 10\nMixed media auf Leinwand\n100 cm x 80 cm"
     },
     {
       "title": "Sapphire",
       "handle": "sapphire",
-      "description": "LOVE Series 01 / 10\n\nMixed media on canvas \n\n100 cm x 80 cm\n\n(Certificate included / all sales are final no return or exchanges)",
+      "description": "LOVE Series 01 / 10\nMixed media on canvas\n100 cm x 80 cm\n(Certificate included / all sales are final no return or exchanges)",
       "available": true,
-      "price": 243500,
+      "price": 249900,
       "images": [
         "/assets/artworks/sapphire/1.jpg",
         "/assets/artworks/sapphire/2.jpg",
         "/assets/artworks/sapphire/3.jpg",
         "/assets/artworks/sapphire/4.jpg"
       ],
-      "publishedAt": "2025-04-16T23:07:39+02:00"
+      "publishedAt": "2025-04-16T23:07:39+02:00",
+      "descriptionDe": "LOVE Serie 01 / 10\nMixed media auf Leinwand\n100 cm x 80 cm"
     }
   ],
   "site": {
