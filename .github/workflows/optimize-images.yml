@@ -1,4 +1,5 @@
 name: Optimize website images
+# rerun-on-current-main
 on:
   push:
     paths:
