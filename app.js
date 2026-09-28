@@ -8,11 +8,11 @@ const de=path==='/de'||path.startsWith('/de/');
 const t=de?{
   bio:'Biographie',art:'Werke',contact:'Kontakt',works:'Werke',inquire:'Zum Werk anfragen',back:'Zurück zu den Werken',
   available:'Auf Lager',sold:'Verkauft',worksSub:'40 Arbeiten · Originalkunstwerke',send:'Senden',comment:'Kommentar',
-  thanks:'Danke fürs Vorbeischauen ♥️',prev:'Vorheriges Bild',next:'Nächstes Bild',collectionTitle:'Kategorie: Werke',filter:'Filter:',availabilityLabel:'Verfügbarkeit',inStockLabel:'Auf Lager',outStockLabel:'Nicht vorrätig',sortLabel:'Sortieren nach:',productsLabel:'Produkte',reset:'Zurücksetzen',sortRelevant:'Am relevantesten',sortBest:'meistverkauft',sortAZ:'Alphabetisch, A-Z',sortZA:'Alphabetisch, Z-A',sortLow:'Preis, niedrig nach hoch',sortHigh:'Preis, hoch nach niedrig',sortOld:'Datum, alt zu neu',sortNew:'Datum, neu zu alt'
+  thanks:'Danke fürs Vorbeischauen ♥️',prev:'Vorheriges Bild',next:'Nächstes Bild',collectionTitle:'Kategorie: Werke',filter:'Filter:',availabilityLabel:'Verfügbarkeit',inStockLabel:'Auf Lager',outStockLabel:'Nicht vorrätig',sortLabel:'Sortieren nach:',productsLabel:'Produkte',reset:'Zurücksetzen',sortRelevant:'Am relevantesten',sortBest:'meistverkauft',sortAZ:'Alphabetisch, A-Z',sortZA:'Alphabetisch, Z-A',sortLow:'Preis, niedrig nach hoch',sortHigh:'Preis, hoch nach niedrig',sortOld:'Datum, alt zu neu',sortNew:'Datum, neu zu alt',prevPage:'Vorherige Seite',nextPage:'Nächste Seite'
 }:{
   bio:'Biography',art:'Artworks',contact:'Contact',works:'Artworks',inquire:'Inquire about this artwork',back:'Back to artworks',
   available:'In stock',sold:'Sold',worksSub:'40 works · Original artworks',send:'Send',comment:'Comment',
-  thanks:'Thank you for visiting ♥️',prev:'Previous image',next:'Next image',collectionTitle:'Collection: Paintings',filter:'Filter:',availabilityLabel:'Availability',inStockLabel:'In stock',outStockLabel:'Out of stock',sortLabel:'Sort by:',productsLabel:'products',reset:'Reset',sortRelevant:'Most relevant',sortBest:'Best selling',sortAZ:'Alphabetically, A-Z',sortZA:'Alphabetically, Z-A',sortLow:'Price, low to high',sortHigh:'Price, high to low',sortOld:'Date, old to new',sortNew:'Date, new to old'
+  thanks:'Thank you for visiting ♥️',prev:'Previous image',next:'Next image',collectionTitle:'Collection: Paintings',filter:'Filter:',availabilityLabel:'Availability',inStockLabel:'In stock',outStockLabel:'Out of stock',sortLabel:'Sort by:',productsLabel:'products',reset:'Reset',sortRelevant:'Most relevant',sortBest:'Best selling',sortAZ:'Alphabetically, A-Z',sortZA:'Alphabetically, Z-A',sortLow:'Price, low to high',sortHigh:'Price, high to low',sortOld:'Date, old to new',sortNew:'Date, new to old',prevPage:'Previous page',nextPage:'Next page'
 };
 function money(cents){return new Intl.NumberFormat(de?'de-DE':'en-US',{style:'currency',currency:'EUR'}).format((cents||0)/100)}
 function fixLinks(){document.querySelectorAll('a[href^="/"]').forEach(a=>{const h=a.getAttribute('href');if(ROOT&&!h.startsWith(ROOT+'/'))a.setAttribute('href',ROOT+h)})}
@@ -140,6 +140,9 @@ function works(){
  const base=de?'/de/products/':'/products/';
  const originalOrder=new Map(products.map((p,i)=>[p.handle,i]));
  const counts={inStock:products.filter(p=>p.available).length,outStock:products.filter(p=>!p.available).length};
+ const PAGE_SIZE=16;
+ const params=new URLSearchParams(location.search);
+ let currentPage=Math.max(1,parseInt(params.get('page')||'1',10)||1);
  app.innerHTML=`
    <section class="page-head collection-head"><h1>${t.collectionTitle}</h1></section>
    <section class="collection-toolbar">
@@ -163,16 +166,39 @@ function works(){
          <option value="low">${t.sortLow}</option>
          <option value="high">${t.sortHigh}</option>
          <option value="old">${t.sortOld}</option>
-         <option value="new">${t.sortNew}</option>
+         <option value="new" selected>${t.sortNew}</option>
        </select>
        <span id="product-count">${products.length} ${t.productsLabel}</span>
      </div>
    </section>
-   <section class="products" id="products-grid"></section>`;
+   <section class="products" id="products-grid"></section>
+   <nav class="collection-pagination" id="collection-pagination" aria-label="${de?'Seitennummerierung':'Pagination'}"></nav>`;
 
- const renderGrid=()=>{
+ const setPageInUrl=page=>{
+   const u=new URL(location.href);
+   if(page<=1)u.searchParams.delete('page');else u.searchParams.set('page',String(page));
+   history.replaceState({},'',u.pathname+(u.search?'?'+u.searchParams.toString():''));
+ };
+ const renderPagination=(totalPages)=>{
+   const nav=document.getElementById('collection-pagination');
+   if(totalPages<=1){nav.innerHTML='';return}
+   nav.innerHTML=`<ul>
+     ${currentPage>1?`<li><a class="page-arrow prev" href="?page=${currentPage-1}" aria-label="${t.prevPage}">‹</a></li>`:''}
+     ${Array.from({length:totalPages},(_,i)=>i+1).map(n=>`<li><a class="page-number ${n===currentPage?'current':''}" ${n===currentPage?'aria-current="page"':''} href="${n===1?'?':'?page='+n}" data-page="${n}">${n}</a></li>`).join('')}
+     ${currentPage<totalPages?`<li><a class="page-arrow next" href="?page=${currentPage+1}" aria-label="${t.nextPage}">›</a></li>`:''}
+   </ul>`;
+   nav.querySelectorAll('a[data-page],a.page-arrow').forEach(a=>a.addEventListener('click',e=>{
+     e.preventDefault();
+     const m=a.getAttribute('href').match(/page=(\d+)/);
+     currentPage=m?parseInt(m[1],10):1;
+     setPageInUrl(currentPage);
+     renderGrid(true);
+     document.querySelector('.collection-head')?.scrollIntoView({behavior:'smooth',block:'start'});
+   }));
+ };
+ const renderGrid=(keepPage=false)=>{
    const filter=document.getElementById('availability-filter')?.value||'all';
-   const sort=document.getElementById('sort-products')?.value||'relevant';
+   const sort=document.getElementById('sort-products')?.value||'new';
    let list=products.filter(p=>filter==='all'||(filter==='in'?p.available:!p.available));
    list=[...list];
    if(sort==='az')list.sort((a,b)=>a.title.localeCompare(b.title));
@@ -182,14 +208,26 @@ function works(){
    else if(sort==='old')list.sort((a,b)=>new Date(a.publishedAt||0)-new Date(b.publishedAt||0));
    else if(sort==='new')list.sort((a,b)=>new Date(b.publishedAt||0)-new Date(a.publishedAt||0));
    else list.sort((a,b)=>(originalOrder.get(a.handle)||0)-(originalOrder.get(b.handle)||0));
+   const totalPages=Math.max(1,Math.ceil(list.length/PAGE_SIZE));
+   if(!keepPage)currentPage=1;
+   if(currentPage>totalPages)currentPage=totalPages;
+   setPageInUrl(currentPage);
+   const pageItems=list.slice((currentPage-1)*PAGE_SIZE,currentPage*PAGE_SIZE);
    const grid=document.getElementById('products-grid');
-   grid.innerHTML=list.map(p=>`<a class="product-card" href="${base+p.handle}"><img loading="lazy" src="${webAsset(p.images[0])}" alt="${p.title}"><div class="product-meta"><div class="product-title">${p.title}</div><div class="product-sub"><span>${money(p.price)}</span><span class="${p.available?'':'sold'}">${p.available?t.available:t.sold}</span></div></div></a>`).join('');
+   grid.innerHTML=pageItems.map(p=>`<a class="product-card" href="${base+p.handle}">
+     <div class="product-image-wrap">
+       <img loading="lazy" src="${webAsset(p.images[0])}" alt="${p.title}">
+       ${!p.available?`<span class="sold-image-badge"><i></i>${de?'Verkauft':'Sold'}</span>`:''}
+     </div>
+     <div class="product-meta"><div class="product-title">${p.title}</div><div class="product-sub"><span>${money(p.price)}</span></div></div>
+   </a>`).join('');
    document.getElementById('product-count').textContent=list.length+' '+t.productsLabel;
+   renderPagination(totalPages);
    fixLinks();
  };
- document.getElementById('availability-filter').addEventListener('change',renderGrid);
- document.getElementById('sort-products').addEventListener('change',renderGrid);
- renderGrid();
+ document.getElementById('availability-filter').addEventListener('change',()=>renderGrid(false));
+ document.getElementById('sort-products').addEventListener('change',()=>renderGrid(false));
+ renderGrid(true);
 }
 function detail(handle){
  const p=products.find(x=>x.handle===handle);if(!p)return notfound();
@@ -201,12 +239,13 @@ function detail(handle){
    <div class="product-gallery-stage">
      ${p.images.map((im,i)=>`<figure class="product-gallery-slide ${i===0?'active':''}" data-index="${i}">
        <img ${i===0?`src="${webAsset(im)}"`:`data-src="${webAsset(im)}"`} alt="${p.title}${i?' – '+(de?'Ansicht ':'view ')+(i+1):''}" draggable="false">
+       ${!p.available?`<span class="sold-image-badge detail-sold"><i></i>${de?'Verkauft':'Sold'}</span>`:''}
      </figure>`).join('')}
      ${p.images.length>1?`<button class="product-prev" type="button" aria-label="${t.prev}">‹</button><button class="product-next" type="button" aria-label="${t.next}">›</button>`:''}
    </div>
    ${p.images.length>1?`<div class="product-gallery-counter"><span>1</span> / ${p.images.length}</div>`:''}
  </div>`;
- app.innerHTML=`<section class="detail"><div class="detail-media">${gallery}</div><div class="detail-copy"><a href="${de?'/de/collections/prints':'/collections/prints'}">← ${t.back}</a><h1>${p.title}</h1><div class="price">${money(p.price)}</div><div class="status">${p.available?t.available:t.sold}</div><div class="description">${paragraphs}</div><a class="link-btn" href="mailto:info@samuelnagler.com?subject=${encodeURIComponent((de?'Anfrage zu ':'Inquiry about ')+p.title)}">${t.inquire}</a></div></section>`;
+ app.innerHTML=`<section class="detail"><div class="detail-media">${gallery}</div><div class="detail-copy"><a href="${de?'/de/collections/prints':'/collections/prints'}">← ${t.back}</a><h1>${p.title}</h1><div class="price">${money(p.price)}</div><div class="description">${paragraphs}</div><a class="link-btn" href="mailto:info@samuelnagler.com?subject=${encodeURIComponent((de?'Anfrage zu ':'Inquiry about ')+p.title)}">${t.inquire}</a></div></section>`;
 }
 function contact(){
  setMeta(
