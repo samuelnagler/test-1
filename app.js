@@ -193,9 +193,10 @@ function works(){
 }
 function detail(handle){
  const p=products.find(x=>x.handle===handle);if(!p)return notfound();
- const metaDescription=((p.description||'Original artwork by Samuel Nagler').replace(/\s+/g,' ').trim()).slice(0,155);
+ const desc=(de&&p.descriptionDe)?p.descriptionDe:p.description;
+ const metaDescription=((desc||'Original artwork by Samuel Nagler').replace(/\s+/g,' ').trim()).slice(0,155);
  setMeta(p.title+' | Samuel Nagler',metaDescription,p.images[0]||site.hero);
- const paragraphs=(p.description||'').split(/\n+/).filter(Boolean).map(x=>`<p>${x}</p>`).join('');
+ const paragraphs=(desc||'').split(/\n+/).filter(Boolean).map(x=>`<p>${x}</p>`).join('');
  const gallery=`<div class="product-gallery" data-product-gallery tabindex="0" aria-label="${de?'Bildergalerie':'Image gallery'} ${p.title}">
    <div class="product-gallery-stage">
      ${p.images.map((im,i)=>`<figure class="product-gallery-slide ${i===0?'active':''}" data-index="${i}">
