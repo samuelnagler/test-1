@@ -156,7 +156,7 @@ function imprint(){
    <h2>${de?'Angaben gemäß § 5 DDG':'Information pursuant to § 5 DDG'}</h2>
    <p><strong>Samuel Nagler</strong><br>Einzelunternehmer<br>Eresburgstraße 28<br>12103 Berlin<br>Deutschland</p>
    <h2>${de?'Kontakt':'Contact'}</h2>
-   <p>E-Mail: <a href="mailto:info@samuelnagler.com">Samuelnaglerprivat@gmail.com</a></p>
+   <p>E-Mail: <a href="mailto:info@samuelnagler.com">info@samuelnagler.com</a></p>
    <h2>${de?'Verantwortlich für den Inhalt':'Responsible for content'}</h2>
    <p>Samuel Nagler<br>Eresburgstraße 28<br>12103 Berlin</p>
    <h2>${de?'Urheberrecht':'Copyright'}</h2>
@@ -169,7 +169,7 @@ function privacy(){
    <h1>${de?'Datenschutzerklärung':'Privacy policy'}</h1>
    <p><strong>${de?'Stand: September 2026':'Last updated: September 2026'}</strong></p>
    <h2>1. ${de?'Verantwortlicher':'Controller'}</h2>
-   <p>Samuel Nagler<br>Eresburgstraße 28<br>12103 Berlin<br>Deutschland<br>E-Mail: <a href="mailto:Samuelnaglerprivat@gmail.com">Samuelnaglerprivat@gmail.com</a></p>
+   <p>Samuel Nagler<br>Eresburgstraße 28<br>12103 Berlin<br>Deutschland<br>E-Mail: <a href="mailto:info@samuelnagler.com">info@samuelnagler.com</a></p>
    <h2>2. ${de?'Hosting über GitHub Pages':'Hosting via GitHub Pages'}</h2>
    <p>${de?'Diese Website wird als statische Website über GitHub Pages bereitgestellt. Beim Aufruf der Website werden technisch notwendige Verbindungsdaten verarbeitet. GitHub dokumentiert insbesondere, dass die IP-Adresse von Besuchern zu Sicherheitszwecken protokolliert und gespeichert wird. Die Verarbeitung erfolgt zur sicheren und zuverlässigen Bereitstellung der Website auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. GitHub kann Daten auch außerhalb der Europäischen Union verarbeiten. Weitere Informationen finden sich in der Datenschutzerklärung von GitHub.':'This website is provided as a static website through GitHub Pages. When the site is accessed, technically necessary connection data is processed. GitHub states that visitors’ IP addresses are logged and stored for security purposes. Processing is based on Art. 6(1)(f) GDPR for the secure and reliable provision of the website. GitHub may also process data outside the European Union. Further information is available in GitHub’s privacy statement.'}</p>
    <p><a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noreferrer">GitHub Privacy Statement</a></p>
