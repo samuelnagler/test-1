@@ -55,11 +55,19 @@ function home(){
  app.innerHTML=`
    <section class="shop-hero"><img src="${hero}" alt="Samuel Nagler"></section>
    ${rich('Samuel Nagler',de?introDE:introEN,'intro-rich')}
-   ${carousel(early,de?['','', '', '', '']:['Age 17','Age 20','Age 21','Age 21','Age 21'])}
-   ${rich(de?'Mit:':'At:',de?milestonesDE:milestonesEN,'milestones')}
-   ${carousel(age25,['Age 25','','','',''])}
-   ${rich(de?'Alle Bilder sind unterschiedlich aufhängbar':'All paintings can be hung in different ways',de?paintingsDE:paintingsEN,'paintings-copy')}
-   ${carousel(age26,['Age 26','','','',''])}
+   ${carousel(early,de?['','','','','']:['Age 17','Age 20','Age 21','Age 21','Age 21'])}
+   <section class="shop-rich milestones"><div class="shop-rich-inner">${de?
+     '<p><strong>Mit:<br><br>21 Jahren</strong> kreierte er bereits beeindruckende realistische Kunst.</p><p><strong>22 Jahren </strong>arbeitete Samuel Nagler in einem der angesagtesten Studios Deutschlands – mit drei Standorten, eigener TV-Show und Convention.</p><p><strong>23 Jahren</strong> folgte eine Zusammenarbeit mit einem der berühmtesten Studios Deutschlands und im selben Jahr noch mit dem größten Tattoo-Studio der Welt.</p><p><strong>24 Jahren </strong>verkaufte er seine Werke bereits national und international.<br><br><strong>25 Jahren</strong> eröffnete er sein Atelier in Berlin Schöneberg, wo er eine neue Technik in der abstrakten Kunst entwickelte.</p><p>Heute steht sein Name für Perfektion, künstlerische Tiefe und unverwechselbares Aussehen.</p>':
+     '<p><strong>At:<br><br>21 years old</strong> he was already creating impressive realistic art.</p><p><strong>22 years old </strong>Samuel Nagler was working in one of the most sought after studio in Germany - with three locations, own TV show and convention.</p><p><strong>23 years old</strong> he collaborated with one of the most famous studio in Germany and in the same year with the biggest tattoo studio in the world.</p><p><strong>24 years old </strong>Samuel was selling his work nationally and internationally.<br><br><strong>25 years old</strong> he opened his atelier in Berlin Schöneberg where he developed an unseen technique in abstract art.</p><p>Today, his name stands for perfection, artistic depth, and a distinctive appearance.</p>'
+   }</div></section>
+   ${carousel(age25)}
+   <section class="shop-rich age-label"><div class="shop-rich-inner"><p>Age 25</p></div></section>
+   <section class="shop-rich paintings-copy"><div class="shop-rich-inner">${de?
+     '<p>Alle Bilder sind unterschiedlich aufhängbar, wodurch sich <strong>Wirkung und Aussehen komplett verändern lassen</strong>. Sie spielen mit Licht, Perspektive und Bewegung, wirken mal entspannend, mal energetisch, mal fließend, mal brennend. Kunst, die nicht nur betrachtet, sondern erlebt wird.</p><p>Die Serien sind abgeschlossene Werkreihen, jede mit individueller künstlerischer Handschrift. Es gibt keine Reproduktionen – jede Serie ist einzigartig und auf zehn Werke limitiert.</p>':
+     '<p>All paintings can be hung in different ways <strong>completely changing its effect and appearance</strong>. They play with light, perspective and movement, sometimes relaxing, sometimes energetic, sometimes flowing, sometimes burning. Art that is not only viewed but experienced.</p><p>The series are complete, self-contained bodies of work, each with its own distinct artistic signature. There are no reproductions – each series is unique and limited to ten pieces.</p>'
+   }</div></section>
+   ${carousel(age26)}
+   <section class="shop-rich age-label"><div class="shop-rich-inner"><p>Age 26</p></div></section>
    ${rich('CV',cv,'cv')}
    ${featured()}
  `;
