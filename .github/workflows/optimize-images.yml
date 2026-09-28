@@ -1,0 +1,54 @@
+name: Optimize website images
+on:
+  push:
+    paths:
+      - '.github/workflows/optimize-images.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create web-optimized images
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageOps
+
+          source = Path("assets")
+          target = Path("assets-web")
+          count = 0
+          before = 0
+          after = 0
+          for src in source.rglob("*"):
+              if not src.is_file() or src.suffix.lower() not in {".jpg",".jpeg",".png",".webp"}:
+                  continue
+              rel = src.relative_to(source).with_suffix(".webp")
+              dst = target / rel
+              dst.parent.mkdir(parents=True, exist_ok=True)
+              before += src.stat().st_size
+              with Image.open(src) as im:
+                  im = ImageOps.exif_transpose(im)
+                  if im.mode not in ("RGB","RGBA"):
+                      im = im.convert("RGBA" if "transparency" in im.info else "RGB")
+                  max_side = 2400
+                  if rel.as_posix() == "site/logo.webp":
+                      max_side = 800
+                  if max(im.size) > max_side:
+                      scale = max_side / max(im.size)
+                      im = im.resize((round(im.width*scale), round(im.height*scale)), Image.Resampling.LANCZOS)
+                  im.save(dst, "WEBP", quality=88, method=6)
+              after += dst.stat().st_size
+              count += 1
+          print(f"optimized={count} original_mb={before/1048576:.1f} web_mb={after/1048576:.1f}")
+          PY
+      - name: Commit optimized images
+        run: |
+          git config user.name "Samuel site optimizer"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets-web
+          git commit -m "Add web-optimized image assets" || exit 0
+          git push
