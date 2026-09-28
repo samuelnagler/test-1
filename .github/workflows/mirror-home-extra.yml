@@ -1,0 +1,49 @@
+name: Mirror homepage slideshow assets
+on:
+  push:
+    paths:
+      - '.github/workflows/mirror-home-extra.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download homepage slideshow images
+        run: |
+          python3 - <<'PY'
+          import urllib.request
+          from pathlib import Path
+          imgs = {
+            "early-1.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_9090_2c2ac3a4-e598-419c-8734-e05b0f665b43.jpg?v=1745446511&width=3840",
+            "early-2.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_8711_43698667-e6b7-4ebf-92b9-b14d30c136bc.jpg?v=1745711430&width=3840",
+            "early-3.jpg":"https://samuelnagler.com/cdn/shop/files/519D1C68-C590-45F4-949E-F5983E432D5A_27fc8a06-e268-4bc0-9e52-ae70e3226550.jpg?v=1744926539&width=3840",
+            "early-4.jpg":"https://samuelnagler.com/cdn/shop/files/4_91672984-981d-4997-a446-47cab9aff3d8.jpg?v=1743450348&width=3840",
+            "early-5.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_9434_81c0b01b-7793-4502-a808-c42402b7ccb9.jpg?v=1744926726&width=3840",
+            "age25-1.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_9166.jpg?v=1742416877&width=3840",
+            "age25-2.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_9249.jpg?v=1742429125&width=3840",
+            "age25-3.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_9167.jpg?v=1742416877&width=3840",
+            "age25-4.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_9219.jpg?v=1742423301&width=3840",
+            "age25-5.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_9191.jpg?v=1742419217&width=3840",
+            "age26-1.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_9203_dd524e9e-1308-46d5-b8b3-58852fbe20f6.jpg?v=1742422136&width=3840",
+            "age26-2.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_9206.jpg?v=1742422117&width=3840",
+            "age26-3.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_9393.jpg?v=1742938472&width=3840",
+            "age26-4.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_9208.jpg?v=1742422117&width=3840",
+            "age26-5.jpg":"https://samuelnagler.com/cdn/shop/files/IMG_9252.jpg?v=1742429588&width=3840"
+          }
+          out=Path("assets/site/slides"); out.mkdir(parents=True,exist_ok=True)
+          headers={"User-Agent":"Mozilla/5.0"}
+          for name,url in imgs.items():
+            req=urllib.request.Request(url,headers=headers)
+            with urllib.request.urlopen(req,timeout=90) as r:
+              (out/name).write_bytes(r.read())
+          PY
+      - name: Commit images
+        run: |
+          git config user.name "Samuel site mirror"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/site/slides
+          git commit -m "Mirror homepage slideshow assets" || exit 0
+          git push
