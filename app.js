@@ -1,5 +1,7 @@
 const ROOT=window.SITE_BASE||'';
 const asset=p=>ROOT+p;
+const webPath=p=>(p||'').replace(/^\/assets\//,'/assets-web/').replace(/\.(?:jpe?g|png|webp)$/i,'.webp');
+const webAsset=p=>asset(webPath(p));
 let products=[],site={};
 let path=(ROOT&&location.pathname.startsWith(ROOT)?location.pathname.slice(ROOT.length):location.pathname).replace(/\/$/,'')||'/';
 const de=path==='/de'||path.startsWith('/de/');
@@ -16,7 +18,7 @@ function money(cents){return new Intl.NumberFormat(de?'de-DE':'en-US',{style:'cu
 function fixLinks(){document.querySelectorAll('a[href^="/"]').forEach(a=>{const h=a.getAttribute('href');if(ROOT&&!h.startsWith(ROOT+'/'))a.setAttribute('href',ROOT+h)})}
 function setChrome(){
   document.documentElement.lang=de?'de':'en';
-  const logo=document.querySelector('.brand img'); if(logo&&site.logo) logo.src=asset(site.logo);
+  const logo=document.querySelector('.brand img'); if(logo&&site.logo) logo.src=webAsset(site.logo);
   const brand=document.querySelector('.brand'); brand.href=de?'/de':'/';
   const nBio=document.querySelector('[data-nav="bio"]'), nArt=document.querySelector('[data-nav="art"]'), nContact=document.querySelector('[data-nav="contact"]');
   nBio.textContent=t.bio;nBio.href=de?'/de':'/';
@@ -61,7 +63,7 @@ function setMeta(title,description,imagePath='',robots='index,follow,max-image-p
   metaTag('meta[name="twitter:title"]',{name:'twitter:title',content:title});
   metaTag('meta[name="twitter:description"]',{name:'twitter:description',content:description});
   if(imagePath){
-    const img=SITE_ORIGIN+imagePath;
+    const img=SITE_ORIGIN+webPath(imagePath);
     metaTag('meta[property="og:image"]',{property:'og:image',content:img});
     metaTag('meta[name="twitter:image"]',{name:'twitter:image',content:img});
   }
@@ -79,16 +81,16 @@ function rich(heading,body,cls=''){
   return `<section class="shop-rich ${cls}"><div class="shop-rich-inner">${heading?`<h2>${heading}</h2>`:''}${paras}</div></section>`;
 }
 function carousel(images,labels=[]){
-  return `<section class="shop-slideshow" data-carousel><div class="slides">${images.map((im,i)=>`<figure class="slide ${i===0?'active':''}"><img ${i===0?`src="${asset(im)}"`:`data-src="${asset(im)}"`} alt="${labels[i]||'Samuel Nagler'}">${labels[i]?`<figcaption>${labels[i]}</figcaption>`:''}</figure>`).join('')}</div><button class="slide-prev" aria-label="${t.prev}">‹</button><button class="slide-next" aria-label="${t.next}">›</button><div class="slide-count"><span>1</span> / ${images.length}</div></section>`;
+  return `<section class="shop-slideshow" data-carousel><div class="slides">${images.map((im,i)=>`<figure class="slide ${i===0?'active':''}"><img ${i===0?`src="${webAsset(im)}"`:`data-src="${webAsset(im)}"`} alt="${labels[i]||'Samuel Nagler'}">${labels[i]?`<figcaption>${labels[i]}</figcaption>`:''}</figure>`).join('')}</div><button class="slide-prev" aria-label="${t.prev}">‹</button><button class="slide-next" aria-label="${t.next}">›</button><div class="slide-count"><span>1</span> / ${images.length}</div></section>`;
 }
 function featured(){
  const wanted=['Ancestor','Animals','Aqua','Argentum','Aura','Aurum','Beginning','Blossom'];
  const list=wanted.map(name=>products.find(p=>p.title===name)).filter(Boolean);
  const base=de?'/de/products/':'/products/';
- return `<section class="featured"><h2>${de?'Ausgewählte Produkte':'Featured products'}</h2><div class="featured-grid">${list.map(p=>`<a class="featured-card" href="${base+p.handle}"><img loading="lazy" src="${asset(p.images[0])}" alt="${p.title}"><h3>${p.title}</h3><div class="featured-price">${money(p.price)}</div></a>`).join('')}</div><a class="view-all" href="${de?'/de/collections/prints':'/collections/prints'}">${de?'Alle Produkte anzeigen':'View all products'}</a></section>`;
+ return `<section class="featured"><h2>${de?'Ausgewählte Produkte':'Featured products'}</h2><div class="featured-grid">${list.map(p=>`<a class="featured-card" href="${base+p.handle}"><img loading="lazy" src="${webAsset(p.images[0])}" alt="${p.title}"><h3>${p.title}</h3><div class="featured-price">${money(p.price)}</div></a>`).join('')}</div><a class="view-all" href="${de?'/de/collections/prints':'/collections/prints'}">${de?'Alle Produkte anzeigen':'View all products'}</a></section>`;
 }
 function home(){
- const hero=asset(site.hero);
+ const hero=webAsset(site.hero);
  setMeta(
    de?'Samuel Nagler | Künstler & Tätowierer':'Samuel Nagler | Artist & Tattoo Artist',
    de?'Samuel Nagler – Künstler, Tätowierer und Auftragsmaler aus Berlin. Originale Kunstwerke, Biografie und Kontakt.':'Samuel Nagler – Berlin-based artist, tattoo artist and commission painter. Original artworks, biography and contact.',
@@ -131,14 +133,14 @@ function works(){
    products[0]?.images?.[0]||site.hero
  );
  const base=de?'/de/products/':'/products/';
- app.innerHTML=`<section class="page-head"><h1>${t.works}</h1><p>${t.worksSub}</p></section><section class="products">${products.map(p=>`<a class="product-card" href="${base+p.handle}"><img loading="lazy" src="${asset(p.images[0])}" alt="${p.title}"><div class="product-meta"><div class="product-title">${p.title}</div><div class="product-sub"><span>${money(p.price)}</span><span class="${p.available?'':'sold'}">${p.available?t.available:t.sold}</span></div></div></a>`).join('')}</section>`;
+ app.innerHTML=`<section class="page-head"><h1>${t.works}</h1><p>${t.worksSub}</p></section><section class="products">${products.map(p=>`<a class="product-card" href="${base+p.handle}"><img loading="lazy" src="${webAsset(p.images[0])}" alt="${p.title}"><div class="product-meta"><div class="product-title">${p.title}</div><div class="product-sub"><span>${money(p.price)}</span><span class="${p.available?'':'sold'}">${p.available?t.available:t.sold}</span></div></div></a>`).join('')}</section>`;
 }
 function detail(handle){
  const p=products.find(x=>x.handle===handle);if(!p)return notfound();
  const metaDescription=((p.description||'Original artwork by Samuel Nagler').replace(/\s+/g,' ').trim()).slice(0,155);
  setMeta(p.title+' | Samuel Nagler',metaDescription,p.images[0]||site.hero);
  const paragraphs=(p.description||'').split(/\n+/).filter(Boolean).map(x=>`<p>${x}</p>`).join('');
- app.innerHTML=`<section class="detail"><div class="detail-media">${p.images.map((im,i)=>`<img loading="${i?'lazy':'eager'}" src="${asset(im)}" alt="${p.title}${i?' – view '+(i+1):''}">`).join('')}</div><div class="detail-copy"><a href="${de?'/de/collections/prints':'/collections/prints'}">← ${t.back}</a><h1>${p.title}</h1><div class="price">${money(p.price)}</div><div class="status">${p.available?t.available:t.sold}</div><div class="description">${paragraphs}</div><a class="link-btn" href="mailto:info@samuelnagler.com?subject=${encodeURIComponent((de?'Anfrage zu ':'Inquiry about ')+p.title)}">${t.inquire}</a></div></section>`;
+ app.innerHTML=`<section class="detail"><div class="detail-media">${p.images.map((im,i)=>`<img loading="${i?'lazy':'eager'}" src="${webAsset(im)}" alt="${p.title}${i?' – view '+(i+1):''}">`).join('')}</div><div class="detail-copy"><a href="${de?'/de/collections/prints':'/collections/prints'}">← ${t.back}</a><h1>${p.title}</h1><div class="price">${money(p.price)}</div><div class="status">${p.available?t.available:t.sold}</div><div class="description">${paragraphs}</div><a class="link-btn" href="mailto:info@samuelnagler.com?subject=${encodeURIComponent((de?'Anfrage zu ':'Inquiry about ')+p.title)}">${t.inquire}</a></div></section>`;
 }
 function contact(){
  setMeta(
