@@ -24,7 +24,12 @@ function setChrome(){
   nBio.textContent=t.bio;nBio.href=de?'/de':'/';
   nArt.textContent=t.art;nArt.href=de?'/de/collections/prints':'/collections/prints';
   nContact.textContent=t.contact;nContact.href=de?'/de/pages/contact':'/pages/contact';
-  const langs=document.querySelectorAll('.lang a'); if(langs[0])langs[0].href='/';if(langs[1])langs[1].href='/de';
+  const langs=document.querySelectorAll('.lang a');
+  let enPath=path, dePath=path;
+  if(path==='/de'){enPath='/';dePath='/de'}
+  else if(path.startsWith('/de/')){enPath=path.slice(3)||'/';dePath=path}
+  else {enPath=path;dePath=path==='/'?'/de':'/de'+path}
+  if(langs[0])langs[0].href=enPath;if(langs[1])langs[1].href=dePath;
   const foot=document.querySelector('footer .footlinks');
   if(foot){
     foot.innerHTML=`
