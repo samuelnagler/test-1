@@ -23,10 +23,15 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+      - name: Build lean static artifact
+        run: |
+          mkdir -p _site/assets
+          rsync -a --exclude='.git*' --exclude='.github' --exclude='assets/' --exclude='_site' ./ _site/
+          cp assets/products.json _site/assets/products.json
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
