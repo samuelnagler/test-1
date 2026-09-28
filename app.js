@@ -6,11 +6,11 @@ const de=path==='/de'||path.startsWith('/de/');
 const t=de?{
   bio:'Biographie',art:'Werke',contact:'Kontakt',works:'Werke',inquire:'Zum Werk anfragen',back:'Zurück zu den Werken',
   available:'Auf Lager',sold:'Verkauft',worksSub:'40 Arbeiten · Originalkunstwerke',send:'Senden',comment:'Kommentar',
-  thanks:'Danke fürs Vorbeischauen ♥️'
+  thanks:'Danke fürs Vorbeischauen ♥️',prev:'Vorheriges Bild',next:'Nächstes Bild'
 }:{
   bio:'Biography',art:'Artworks',contact:'Contact',works:'Artworks',inquire:'Inquire about this artwork',back:'Back to artworks',
   available:'In stock',sold:'Sold',worksSub:'40 works · Original artworks',send:'Send',comment:'Comment',
-  thanks:'Thank you for visiting ♥️'
+  thanks:'Thank you for visiting ♥️',prev:'Previous image',next:'Next image'
 };
 function money(cents){return new Intl.NumberFormat(de?'de-DE':'en-US',{style:'currency',currency:'EUR'}).format((cents||0)/100)}
 function fixLinks(){document.querySelectorAll('a[href^="/"]').forEach(a=>{const h=a.getAttribute('href');if(ROOT&&!h.startsWith(ROOT+'/'))a.setAttribute('href',ROOT+h)})}
@@ -34,12 +34,52 @@ function setChrome(){
   fixLinks();
 }
 const app=document.getElementById('app');
+const SITE_ORIGIN='https://samuelnagler.com';
+function metaTag(selector,attrs){
+  let el=document.head.querySelector(selector);
+  if(!el){el=document.createElement('meta');document.head.appendChild(el)}
+  Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));
+  return el;
+}
+function linkTag(rel,hreflang,href){
+  let selector='link[rel="'+rel+'"]'+(hreflang?'[hreflang="'+hreflang+'"]':'');
+  let el=document.head.querySelector(selector);
+  if(!el){el=document.createElement('link');el.rel=rel;if(hreflang)el.hreflang=hreflang;document.head.appendChild(el)}
+  el.href=href;
+}
+function setMeta(title,description,imagePath='',robots='index,follow,max-image-preview:large'){
+  document.title=title;
+  let d=document.head.querySelector('meta[name="description"]');
+  if(!d){d=document.createElement('meta');d.name='description';document.head.appendChild(d)}
+  d.content=description;
+  metaTag('meta[name="robots"]',{name:'robots',content:robots});
+  metaTag('meta[property="og:title"]',{property:'og:title',content:title});
+  metaTag('meta[property="og:description"]',{property:'og:description',content:description});
+  metaTag('meta[property="og:type"]',{property:'og:type',content:'website'});
+  metaTag('meta[property="og:url"]',{property:'og:url',content:SITE_ORIGIN+path});
+  metaTag('meta[name="twitter:card"]',{name:'twitter:card',content:'summary_large_image'});
+  metaTag('meta[name="twitter:title"]',{name:'twitter:title',content:title});
+  metaTag('meta[name="twitter:description"]',{name:'twitter:description',content:description});
+  if(imagePath){
+    const img=SITE_ORIGIN+imagePath;
+    metaTag('meta[property="og:image"]',{property:'og:image',content:img});
+    metaTag('meta[name="twitter:image"]',{name:'twitter:image',content:img});
+  }
+  linkTag('canonical','',SITE_ORIGIN+path);
+  let enPath=path, dePath=path;
+  if(path==='/de'){enPath='/';dePath='/de'}
+  else if(path.startsWith('/de/')){enPath=path.slice(3)||'/';dePath=path}
+  else {enPath=path;dePath=path==='/'?'/de':'/de'+path}
+  linkTag('alternate','en',SITE_ORIGIN+enPath);
+  linkTag('alternate','de',SITE_ORIGIN+dePath);
+  linkTag('alternate','x-default',SITE_ORIGIN+enPath);
+}
 function rich(heading,body,cls=''){
   const paras=body.split('\n').filter(Boolean).map(p=>`<p>${p}</p>`).join('');
   return `<section class="shop-rich ${cls}"><div class="shop-rich-inner">${heading?`<h2>${heading}</h2>`:''}${paras}</div></section>`;
 }
 function carousel(images,labels=[]){
-  return `<section class="shop-slideshow" data-carousel><div class="slides">${images.map((im,i)=>`<figure class="slide ${i===0?'active':''}"><img src="${asset(im)}" alt="${labels[i]||'Samuel Nagler'}">${labels[i]?`<figcaption>${labels[i]}</figcaption>`:''}</figure>`).join('')}</div><button class="slide-prev" aria-label="Previous slide">‹</button><button class="slide-next" aria-label="Next slide">›</button><div class="slide-count"><span>1</span> / ${images.length}</div></section>`;
+  return `<section class="shop-slideshow" data-carousel><div class="slides">${images.map((im,i)=>`<figure class="slide ${i===0?'active':''}"><img ${i===0?`src="${asset(im)}"`:`data-src="${asset(im)}"`} alt="${labels[i]||'Samuel Nagler'}">${labels[i]?`<figcaption>${labels[i]}</figcaption>`:''}</figure>`).join('')}</div><button class="slide-prev" aria-label="${t.prev}">‹</button><button class="slide-next" aria-label="${t.next}">›</button><div class="slide-count"><span>1</span> / ${images.length}</div></section>`;
 }
 function featured(){
  const wanted=['Ancestor','Animals','Aqua','Argentum','Aura','Aurum','Beginning','Blossom'];
@@ -49,6 +89,11 @@ function featured(){
 }
 function home(){
  const hero=asset(site.hero);
+ setMeta(
+   de?'Samuel Nagler | Künstler & Tätowierer':'Samuel Nagler | Artist & Tattoo Artist',
+   de?'Samuel Nagler – Künstler, Tätowierer und Auftragsmaler aus Berlin. Originale Kunstwerke, Biografie und Kontakt.':'Samuel Nagler – Berlin-based artist, tattoo artist and commission painter. Original artworks, biography and contact.',
+   site.hero
+ );
  const early=['/assets/site/slides/early-1.jpg','/assets/site/slides/early-2.jpg','/assets/site/slides/early-3.jpg','/assets/site/slides/early-4.jpg','/assets/site/slides/early-5.jpg'];
  const age25=['/assets/site/slides/age25-1.jpg','/assets/site/slides/age25-2.jpg','/assets/site/slides/age25-3.jpg','/assets/site/slides/age25-4.jpg','/assets/site/slides/age25-5.jpg'];
  const age26=['/assets/site/slides/age26-1.jpg','/assets/site/slides/age26-2.jpg','/assets/site/slides/age26-3.jpg','/assets/site/slides/age26-4.jpg','/assets/site/slides/age26-5.jpg'];
@@ -80,25 +125,38 @@ function home(){
  `;
 }
 function works(){
+ setMeta(
+   de?'Werke | Samuel Nagler':'Artworks | Samuel Nagler',
+   de?'Originale Kunstwerke von Samuel Nagler. Abstrakte und realistische Arbeiten, Verfügbarkeit und Werkdetails.':'Original artworks by Samuel Nagler. Abstract and realistic works, availability and artwork details.',
+   products[0]?.images?.[0]||site.hero
+ );
  const base=de?'/de/products/':'/products/';
  app.innerHTML=`<section class="page-head"><h1>${t.works}</h1><p>${t.worksSub}</p></section><section class="products">${products.map(p=>`<a class="product-card" href="${base+p.handle}"><img loading="lazy" src="${asset(p.images[0])}" alt="${p.title}"><div class="product-meta"><div class="product-title">${p.title}</div><div class="product-sub"><span>${money(p.price)}</span><span class="${p.available?'':'sold'}">${p.available?t.available:t.sold}</span></div></div></a>`).join('')}</section>`;
 }
 function detail(handle){
  const p=products.find(x=>x.handle===handle);if(!p)return notfound();
+ const metaDescription=((p.description||'Original artwork by Samuel Nagler').replace(/\s+/g,' ').trim()).slice(0,155);
+ setMeta(p.title+' | Samuel Nagler',metaDescription,p.images[0]||site.hero);
  const paragraphs=(p.description||'').split(/\n+/).filter(Boolean).map(x=>`<p>${x}</p>`).join('');
  app.innerHTML=`<section class="detail"><div class="detail-media">${p.images.map((im,i)=>`<img loading="${i?'lazy':'eager'}" src="${asset(im)}" alt="${p.title}${i?' – view '+(i+1):''}">`).join('')}</div><div class="detail-copy"><a href="${de?'/de/collections/prints':'/collections/prints'}">← ${t.back}</a><h1>${p.title}</h1><div class="price">${money(p.price)}</div><div class="status">${p.available?t.available:t.sold}</div><div class="description">${paragraphs}</div><a class="link-btn" href="mailto:info@samuelnagler.com?subject=${encodeURIComponent((de?'Anfrage zu ':'Inquiry about ')+p.title)}">${t.inquire}</a></div></section>`;
 }
 function contact(){
+ setMeta(
+   de?'Kontakt | Samuel Nagler':'Contact | Samuel Nagler',
+   de?'Kontakt zu Samuel Nagler für Kunstwerke, Auftragsarbeiten und weitere Anfragen.':'Contact Samuel Nagler about artworks, commissions and other inquiries.',
+   site.logo
+ );
  app.innerHTML=`<section class="contact-card"><h1>${t.contact}</h1><p>${t.thanks}</p><p><a href="mailto:info@samuelnagler.com">info@samuelnagler.com</a></p><form onsubmit="event.preventDefault();const f=new FormData(this);location.href='mailto:info@samuelnagler.com?subject='+encodeURIComponent(f.get('name')+' – Website')+'&body='+encodeURIComponent(f.get('message')+'\\n\\n'+f.get('email'));"><input name="name" required placeholder="Name"><input name="email" type="email" required placeholder="${de?'E-Mail':'Email'}"><textarea name="message" required placeholder="${t.comment}"></textarea><button type="submit">${t.send}</button></form><div class="small-note">${de?'Das Formular öffnet dein E-Mail-Programm; die Website speichert keine Formulardaten.':'The form opens your email client; this website stores no form data.'}</div></section>`;
 }
 
 function imprint(){
+ setMeta(de?'Impressum | Samuel Nagler':'Legal notice | Samuel Nagler',de?'Impressum und Anbieterkennzeichnung von Samuel Nagler.':'Legal notice and provider information for Samuel Nagler.',site.logo);
  app.innerHTML=`<section class="contact-card legal-page">
    <h1>${de?'Impressum':'Impressum / Legal notice'}</h1>
    <h2>${de?'Angaben gemäß § 5 DDG':'Information pursuant to § 5 DDG'}</h2>
    <p><strong>Samuel Nagler</strong><br>Einzelunternehmer<br>Eresburgstraße 28<br>12103 Berlin<br>Deutschland</p>
    <h2>${de?'Kontakt':'Contact'}</h2>
-   <p>E-Mail: <a href="mailto:Samuelnaglerprivat@gmail.com">Samuelnaglerprivat@gmail.com</a></p>
+   <p>E-Mail: <a href="mailto:info@samuelnagler.com">Samuelnaglerprivat@gmail.com</a></p>
    <h2>${de?'Verantwortlich für den Inhalt':'Responsible for content'}</h2>
    <p>Samuel Nagler<br>Eresburgstraße 28<br>12103 Berlin</p>
    <h2>${de?'Urheberrecht':'Copyright'}</h2>
@@ -106,6 +164,7 @@ function imprint(){
  </section>`;
 }
 function privacy(){
+ setMeta(de?'Datenschutz | Samuel Nagler':'Privacy | Samuel Nagler',de?'Datenschutzerklärung für samuelnagler.com.':'Privacy policy for samuelnagler.com.',site.logo);
  app.innerHTML=`<section class="contact-card legal-page">
    <h1>${de?'Datenschutzerklärung':'Privacy policy'}</h1>
    <p><strong>${de?'Stand: September 2026':'Last updated: September 2026'}</strong></p>
@@ -127,11 +186,13 @@ function privacy(){
  </section>`;
 }
 
-function notfound(){app.innerHTML=`<div class="notfound"><h1>404</h1><p>${de?'Seite nicht gefunden.':'Page not found.'}</p><a class="link-btn" href="${de?'/de':'/'}">Home</a></div>`}
+function notfound(){setMeta('404 | Samuel Nagler',de?'Seite nicht gefunden.':'Page not found.',site.logo,'noindex,follow');app.innerHTML=`<div class="notfound"><h1>404</h1><p>${de?'Seite nicht gefunden.':'Page not found.'}</p><a class="link-btn" href="${de?'/de':'/'}">Home</a></div>`}
 function initCarousels(){
  document.querySelectorAll('[data-carousel]').forEach(c=>{
    const slides=[...c.querySelectorAll('.slide')],count=c.querySelector('.slide-count span');let i=0;
-   const show=n=>{i=(n+slides.length)%slides.length;slides.forEach((s,k)=>s.classList.toggle('active',k===i));count.textContent=i+1};
+   const loadSlide=k=>{const img=slides[k]?.querySelector('img[data-src]');if(img){img.src=img.dataset.src;img.removeAttribute('data-src')}};
+   const show=n=>{i=(n+slides.length)%slides.length;loadSlide(i);loadSlide((i+1)%slides.length);slides.forEach((slide,k)=>slide.classList.toggle('active',k===i));count.textContent=i+1};
+   loadSlide(1);
    c.querySelector('.slide-prev').addEventListener('click',()=>show(i-1));
    c.querySelector('.slide-next').addEventListener('click',()=>show(i+1));
  });
