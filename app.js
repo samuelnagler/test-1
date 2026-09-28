@@ -23,7 +23,14 @@ function setChrome(){
   nArt.textContent=t.art;nArt.href=de?'/de/collections/prints':'/collections/prints';
   nContact.textContent=t.contact;nContact.href=de?'/de/pages/contact':'/pages/contact';
   const langs=document.querySelectorAll('.lang a'); if(langs[0])langs[0].href='/';if(langs[1])langs[1].href='/de';
-  const footerContact=document.querySelector('footer .footlinks a:first-child');if(footerContact){footerContact.textContent=t.contact;footerContact.href=de?'/de/pages/contact':'/pages/contact'}
+  const foot=document.querySelector('footer .footlinks');
+  if(foot){
+    foot.innerHTML=`
+      <a href="${de?'/de/pages/contact':'/pages/contact'}">${t.contact}</a>
+      <a href="${de?'/de/impressum':'/impressum'}">${de?'Impressum':'Legal notice'}</a>
+      <a href="${de?'/de/datenschutz':'/datenschutz'}">${de?'Datenschutz':'Privacy'}</a>
+      <a href="https://www.instagram.com/samuelnagler/" target="_blank" rel="noreferrer">Instagram</a>`;
+  }
   fixLinks();
 }
 const app=document.getElementById('app');
@@ -84,6 +91,42 @@ function detail(handle){
 function contact(){
  app.innerHTML=`<section class="contact-card"><h1>${t.contact}</h1><p>${t.thanks}</p><p><a href="mailto:info@samuelnagler.com">info@samuelnagler.com</a></p><form onsubmit="event.preventDefault();const f=new FormData(this);location.href='mailto:info@samuelnagler.com?subject='+encodeURIComponent(f.get('name')+' – Website')+'&body='+encodeURIComponent(f.get('message')+'\\n\\n'+f.get('email'));"><input name="name" required placeholder="Name"><input name="email" type="email" required placeholder="${de?'E-Mail':'Email'}"><textarea name="message" required placeholder="${t.comment}"></textarea><button type="submit">${t.send}</button></form><div class="small-note">${de?'Das Formular öffnet dein E-Mail-Programm; die Website speichert keine Formulardaten.':'The form opens your email client; this website stores no form data.'}</div></section>`;
 }
+
+function imprint(){
+ app.innerHTML=`<section class="contact-card legal-page">
+   <h1>${de?'Impressum':'Impressum / Legal notice'}</h1>
+   <h2>${de?'Angaben gemäß § 5 DDG':'Information pursuant to § 5 DDG'}</h2>
+   <p><strong>Samuel Nagler</strong><br>Einzelunternehmer<br>Eresburgstraße 28<br>12103 Berlin<br>Deutschland</p>
+   <h2>${de?'Kontakt':'Contact'}</h2>
+   <p>E-Mail: <a href="mailto:Samuelnaglerprivat@gmail.com">Samuelnaglerprivat@gmail.com</a></p>
+   <h2>${de?'Verantwortlich für den Inhalt':'Responsible for content'}</h2>
+   <p>Samuel Nagler<br>Eresburgstraße 28<br>12103 Berlin</p>
+   <h2>${de?'Urheberrecht':'Copyright'}</h2>
+   <p>${de?'Die auf dieser Website veröffentlichten Bilder, Kunstwerke und Texte stammen – soweit nicht anders gekennzeichnet – von Samuel Nagler und sind urheberrechtlich geschützt. Eine Verwendung oder Vervielfältigung bedarf der vorherigen Zustimmung.':'Images, artworks and texts published on this website are, unless otherwise indicated, by Samuel Nagler and are protected by copyright. Use or reproduction requires prior permission.'}</p>
+ </section>`;
+}
+function privacy(){
+ app.innerHTML=`<section class="contact-card legal-page">
+   <h1>${de?'Datenschutzerklärung':'Privacy policy'}</h1>
+   <p><strong>${de?'Stand: September 2026':'Last updated: September 2026'}</strong></p>
+   <h2>1. ${de?'Verantwortlicher':'Controller'}</h2>
+   <p>Samuel Nagler<br>Eresburgstraße 28<br>12103 Berlin<br>Deutschland<br>E-Mail: <a href="mailto:Samuelnaglerprivat@gmail.com">Samuelnaglerprivat@gmail.com</a></p>
+   <h2>2. ${de?'Hosting über GitHub Pages':'Hosting via GitHub Pages'}</h2>
+   <p>${de?'Diese Website wird als statische Website über GitHub Pages bereitgestellt. Beim Aufruf der Website werden technisch notwendige Verbindungsdaten verarbeitet. GitHub dokumentiert insbesondere, dass die IP-Adresse von Besuchern zu Sicherheitszwecken protokolliert und gespeichert wird. Die Verarbeitung erfolgt zur sicheren und zuverlässigen Bereitstellung der Website auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. GitHub kann Daten auch außerhalb der Europäischen Union verarbeiten. Weitere Informationen finden sich in der Datenschutzerklärung von GitHub.':'This website is provided as a static website through GitHub Pages. When the site is accessed, technically necessary connection data is processed. GitHub states that visitors’ IP addresses are logged and stored for security purposes. Processing is based on Art. 6(1)(f) GDPR for the secure and reliable provision of the website. GitHub may also process data outside the European Union. Further information is available in GitHub’s privacy statement.'}</p>
+   <p><a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noreferrer">GitHub Privacy Statement</a></p>
+   <h2>3. ${de?'Kontakt per E-Mail':'Contact by email'}</h2>
+   <p>${de?'Wenn du per E-Mail Kontakt aufnimmst, werden die von dir übermittelten Daten zur Bearbeitung deiner Anfrage verarbeitet. Rechtsgrundlage ist – je nach Inhalt der Anfrage – Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche bzw. vertragliche Kommunikation) oder Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung von Anfragen). Das Kontaktformular dieser Website überträgt keine Daten an einen eigenen Webserver, sondern öffnet dein lokal eingerichtetes E-Mail-Programm.':'If you contact me by email, the data you provide is processed to handle your request. Depending on the nature of the request, the legal basis is Art. 6(1)(b) GDPR (pre-contractual or contractual communication) or Art. 6(1)(f) GDPR (legitimate interest in responding to inquiries). The contact form on this website does not transmit data to a separate web server; it opens your locally configured email application.'}</p>
+   <h2>4. ${de?'Cookies, Tracking und eingebettete Dienste':'Cookies, tracking and embedded services'}</h2>
+   <p>${de?'Diese Website verwendet derzeit keine eigenen Analyse- oder Marketing-Cookies, kein Web-Tracking und keine eingebetteten Drittanbieter-Inhalte wie YouTube, Google Maps oder externe Schriftarten. Externe Seiten – etwa Instagram – werden erst aufgerufen, wenn du den entsprechenden Link anklickst.':'This website currently uses no first-party analytics or marketing cookies, no web tracking and no embedded third-party content such as YouTube, Google Maps or externally hosted fonts. External sites such as Instagram are only contacted when you click the corresponding link.'}</p>
+   <h2>5. ${de?'Speicherdauer':'Retention'}</h2>
+   <p>${de?'Personenbezogene Daten werden nur so lange gespeichert, wie dies für den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen. Auf die von GitHub für Sicherheitszwecke geführten Protokolle hat der Websitebetreiber keinen unmittelbaren Zugriff oder Einfluss auf die Speicherdauer.':'Personal data is stored only for as long as necessary for the relevant purpose or as required by statutory retention obligations. The website operator has no direct access to, or control over, GitHub’s security logs or their retention periods.'}</p>
+   <h2>6. ${de?'Deine Rechte':'Your rights'}</h2>
+   <p>${de?'Du hast nach Maßgabe der DSGVO insbesondere das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch gegen bestimmte Verarbeitungen. Außerdem besteht ein Beschwerderecht bei einer Datenschutzaufsichtsbehörde.':'Subject to the GDPR, you have in particular rights of access, rectification, erasure, restriction of processing, data portability and objection to certain processing. You also have the right to lodge a complaint with a data protection supervisory authority.'}</p>
+   <h2>7. ${de?'Änderungen':'Changes'}</h2>
+   <p>${de?'Diese Datenschutzerklärung wird angepasst, wenn sich die technische oder rechtliche Ausgestaltung der Website ändert.':'This privacy policy will be updated if the technical or legal configuration of the website changes.'}</p>
+ </section>`;
+}
+
 function notfound(){app.innerHTML=`<div class="notfound"><h1>404</h1><p>${de?'Seite nicht gefunden.':'Page not found.'}</p><a class="link-btn" href="${de?'/de':'/'}">Home</a></div>`}
 function initCarousels(){
  document.querySelectorAll('[data-carousel]').forEach(c=>{
@@ -93,7 +136,7 @@ function initCarousels(){
    c.querySelector('.slide-next').addEventListener('click',()=>show(i+1));
  });
 }
-function render(){if(path==='/'||path==='/de')home();else if(path.includes('/collections/prints')||path.includes('/collections/all')||path.includes('/collections/frontpage'))works();else if(path.includes('/pages/contact'))contact();else{const m=path.match(/\/products\/([^/]+)$/);m?detail(m[1]):notfound()}fixLinks();initCarousels()}
+function render(){if(path==='/'||path==='/de')home();else if(path.includes('/collections/prints')||path.includes('/collections/all')||path.includes('/collections/frontpage'))works();else if(path.includes('/pages/contact'))contact();else if(path.endsWith('/impressum')||path==='/impressum')imprint();else if(path.endsWith('/datenschutz')||path==='/datenschutz'||path.includes('/policies/privacy-policy'))privacy();else{const m=path.match(/\/products\/([^/]+)$/);m?detail(m[1]):notfound()}fixLinks();initCarousels()}
 async function boot(){
  try{const r=await fetch(asset('/assets/products.json'),{cache:'no-store'});const d=await r.json();products=d.products;site=d.site}catch(e){app.innerHTML='<div class="notfound"><p>Content could not be loaded.</p></div>';return}
  setChrome();render();
