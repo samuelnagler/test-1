@@ -8,11 +8,11 @@ const de=path==='/de'||path.startsWith('/de/');
 const t=de?{
   bio:'Biographie',art:'Werke',contact:'Kontakt',works:'Werke',inquire:'Zum Werk anfragen',back:'Zurück zu den Werken',
   available:'Auf Lager',sold:'Verkauft',worksSub:'40 Arbeiten · Originalkunstwerke',send:'Senden',comment:'Kommentar',
-  thanks:'Danke fürs Vorbeischauen ♥️',prev:'Vorheriges Bild',next:'Nächstes Bild'
+  thanks:'Danke fürs Vorbeischauen ♥️',prev:'Vorheriges Bild',next:'Nächstes Bild',collectionTitle:'Kategorie: Werke',filter:'Filter:',availabilityLabel:'Verfügbarkeit',inStockLabel:'Auf Lager',outStockLabel:'Nicht vorrätig',sortLabel:'Sortieren nach:',productsLabel:'Produkte',reset:'Zurücksetzen',sortRelevant:'Am relevantesten',sortBest:'meistverkauft',sortAZ:'Alphabetisch, A-Z',sortZA:'Alphabetisch, Z-A',sortLow:'Preis, niedrig nach hoch',sortHigh:'Preis, hoch nach niedrig',sortOld:'Datum, alt zu neu',sortNew:'Datum, neu zu alt'
 }:{
   bio:'Biography',art:'Artworks',contact:'Contact',works:'Artworks',inquire:'Inquire about this artwork',back:'Back to artworks',
   available:'In stock',sold:'Sold',worksSub:'40 works · Original artworks',send:'Send',comment:'Comment',
-  thanks:'Thank you for visiting ♥️',prev:'Previous image',next:'Next image'
+  thanks:'Thank you for visiting ♥️',prev:'Previous image',next:'Next image',collectionTitle:'Collection: Paintings',filter:'Filter:',availabilityLabel:'Availability',inStockLabel:'In stock',outStockLabel:'Out of stock',sortLabel:'Sort by:',productsLabel:'products',reset:'Reset',sortRelevant:'Most relevant',sortBest:'Best selling',sortAZ:'Alphabetically, A-Z',sortZA:'Alphabetically, Z-A',sortLow:'Price, low to high',sortHigh:'Price, high to low',sortOld:'Date, old to new',sortNew:'Date, new to old'
 };
 function money(cents){return new Intl.NumberFormat(de?'de-DE':'en-US',{style:'currency',currency:'EUR'}).format((cents||0)/100)}
 function fixLinks(){document.querySelectorAll('a[href^="/"]').forEach(a=>{const h=a.getAttribute('href');if(ROOT&&!h.startsWith(ROOT+'/'))a.setAttribute('href',ROOT+h)})}
@@ -138,7 +138,58 @@ function works(){
    products[0]?.images?.[0]||site.hero
  );
  const base=de?'/de/products/':'/products/';
- app.innerHTML=`<section class="page-head"><h1>${t.works}</h1><p>${t.worksSub}</p></section><section class="products">${products.map(p=>`<a class="product-card" href="${base+p.handle}"><img loading="lazy" src="${webAsset(p.images[0])}" alt="${p.title}"><div class="product-meta"><div class="product-title">${p.title}</div><div class="product-sub"><span>${money(p.price)}</span><span class="${p.available?'':'sold'}">${p.available?t.available:t.sold}</span></div></div></a>`).join('')}</section>`;
+ const originalOrder=new Map(products.map((p,i)=>[p.handle,i]));
+ const counts={inStock:products.filter(p=>p.available).length,outStock:products.filter(p=>!p.available).length};
+ app.innerHTML=`
+   <section class="page-head collection-head"><h1>${t.collectionTitle}</h1></section>
+   <section class="collection-toolbar">
+     <div class="toolbar-left">
+       <span class="toolbar-label">${t.filter}</span>
+       <label class="availability-filter"><span>${t.availabilityLabel}</span>
+         <select id="availability-filter" aria-label="${t.availabilityLabel}">
+           <option value="all">${t.reset}</option>
+           <option value="in">${t.inStockLabel} (${counts.inStock})</option>
+           <option value="out">${t.outStockLabel} (${counts.outStock})</option>
+         </select>
+       </label>
+     </div>
+     <div class="toolbar-right">
+       <label for="sort-products">${t.sortLabel}</label>
+       <select id="sort-products">
+         <option value="relevant">${t.sortRelevant}</option>
+         <option value="best">${t.sortBest}</option>
+         <option value="az">${t.sortAZ}</option>
+         <option value="za">${t.sortZA}</option>
+         <option value="low">${t.sortLow}</option>
+         <option value="high">${t.sortHigh}</option>
+         <option value="old">${t.sortOld}</option>
+         <option value="new">${t.sortNew}</option>
+       </select>
+       <span id="product-count">${products.length} ${t.productsLabel}</span>
+     </div>
+   </section>
+   <section class="products" id="products-grid"></section>`;
+
+ const renderGrid=()=>{
+   const filter=document.getElementById('availability-filter')?.value||'all';
+   const sort=document.getElementById('sort-products')?.value||'relevant';
+   let list=products.filter(p=>filter==='all'||(filter==='in'?p.available:!p.available));
+   list=[...list];
+   if(sort==='az')list.sort((a,b)=>a.title.localeCompare(b.title));
+   else if(sort==='za')list.sort((a,b)=>b.title.localeCompare(a.title));
+   else if(sort==='low')list.sort((a,b)=>a.price-b.price);
+   else if(sort==='high')list.sort((a,b)=>b.price-a.price);
+   else if(sort==='old')list.sort((a,b)=>new Date(a.publishedAt||0)-new Date(b.publishedAt||0));
+   else if(sort==='new')list.sort((a,b)=>new Date(b.publishedAt||0)-new Date(a.publishedAt||0));
+   else list.sort((a,b)=>(originalOrder.get(a.handle)||0)-(originalOrder.get(b.handle)||0));
+   const grid=document.getElementById('products-grid');
+   grid.innerHTML=list.map(p=>`<a class="product-card" href="${base+p.handle}"><img loading="lazy" src="${webAsset(p.images[0])}" alt="${p.title}"><div class="product-meta"><div class="product-title">${p.title}</div><div class="product-sub"><span>${money(p.price)}</span><span class="${p.available?'':'sold'}">${p.available?t.available:t.sold}</span></div></div></a>`).join('');
+   document.getElementById('product-count').textContent=list.length+' '+t.productsLabel;
+   fixLinks();
+ };
+ document.getElementById('availability-filter').addEventListener('change',renderGrid);
+ document.getElementById('sort-products').addEventListener('change',renderGrid);
+ renderGrid();
 }
 function detail(handle){
  const p=products.find(x=>x.handle===handle);if(!p)return notfound();
@@ -162,9 +213,8 @@ function contact(){
    de?'Kontakt zu Samuel Nagler für Kunstwerke, Auftragsarbeiten und weitere Anfragen.':'Contact Samuel Nagler about artworks, commissions and other inquiries.',
    site.logo
  );
- app.innerHTML=`<section class="contact-card"><h1>${t.contact}</h1><p>${t.thanks}</p><p><a href="mailto:info@samuelnagler.com">info@samuelnagler.com</a></p><form onsubmit="event.preventDefault();const f=new FormData(this);location.href='mailto:info@samuelnagler.com?subject='+encodeURIComponent(f.get('name')+' – Website')+'&body='+encodeURIComponent(f.get('message')+'\\n\\n'+f.get('email'));"><input name="name" required placeholder="Name"><input name="email" type="email" required placeholder="${de?'E-Mail':'Email'}"><textarea name="message" required placeholder="${t.comment}"></textarea><button type="submit">${t.send}</button></form><div class="small-note">${de?'Das Formular öffnet dein E-Mail-Programm; die Website speichert keine Formulardaten.':'The form opens your email client; this website stores no form data.'}</div></section>`;
+ app.innerHTML=`<section class="contact-card"><h1>${t.contact}</h1><form onsubmit="event.preventDefault();const f=new FormData(this);const phone=f.get('phone')?('\\n'+(de?'Telefon: ':'Phone: ')+f.get('phone')):'';location.href='mailto:info@samuelnagler.com?subject='+encodeURIComponent(f.get('name')+' – Website')+'&body='+encodeURIComponent(f.get('message')+'\\n\\n'+f.get('email')+phone);"><label>Name<input name="name" required></label><label>${de?'E-Mail':'Email'}<input name="email" type="email" required></label><label>${de?'Telefonnummer':'Phone number'}<input name="phone" type="tel"></label><label>${t.comment}<textarea name="message" required></textarea></label><button type="submit">${t.send}</button></form><div class="small-note">${de?'Das Formular öffnet dein E-Mail-Programm; die Website speichert keine Formulardaten.':'The form opens your email client; this website stores no form data.'}</div></section>`;
 }
-
 function imprint(){
  setMeta(de?'Impressum | Samuel Nagler':'Legal notice | Samuel Nagler',de?'Impressum und Anbieterkennzeichnung von Samuel Nagler.':'Legal notice and provider information for Samuel Nagler.',site.logo);
  app.innerHTML=`<section class="contact-card legal-page">
