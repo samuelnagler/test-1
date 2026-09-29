@@ -54,7 +54,7 @@ function linkTag(rel,hreflang,href){
   if(!el){el=document.createElement('link');el.rel=rel;if(hreflang)el.hreflang=hreflang;document.head.appendChild(el)}
   el.href=href;
 }
-function setMeta(title,description,imagePath='',robots='index,follow,max-image-preview:large'){
+function setMeta(title,description,imagePath='',robots='noindex,nofollow'){
   document.title=title;
   let d=document.head.querySelector('meta[name="description"]');
   if(!d){d=document.createElement('meta');d.name='description';document.head.appendChild(d)}
