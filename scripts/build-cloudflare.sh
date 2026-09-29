@@ -2,17 +2,23 @@
 set -euo pipefail
 
 rm -rf _site
-mkdir -p _site
+tmpdir="$(mktemp -d)"
+trap 'rm -rf "$tmpdir"' EXIT
 
-# Copy the deployable site using only standard shell tools available in Cloudflare's build image.
-cp -R . _site-tmp
-rm -rf _site-tmp/.git _site-tmp/.github _site-tmp/assets _site-tmp/_site _site-tmp/_site-tmp _site-tmp/scripts
-mv _site-tmp/* _site/ 2>/dev/null || true
-mv _site-tmp/.[!.]* _site/ 2>/dev/null || true
-mv _site-tmp/..?* _site/ 2>/dev/null || true
-rmdir _site-tmp 2>/dev/null || true
+# Copy the repository to a temporary directory outside the repository itself.
+cp -R . "$tmpdir/site"
 
-mkdir -p _site/assets
-cp assets/products.json _site/assets/products.json
+# Remove files that must not be part of the production artifact.
+rm -rf "$tmpdir/site/.git" \
+       "$tmpdir/site/.github" \
+       "$tmpdir/site/assets" \
+       "$tmpdir/site/_site" \
+       "$tmpdir/site/scripts"
+
+# Restore only the product data needed by the live site.
+mkdir -p "$tmpdir/site/assets"
+cp assets/products.json "$tmpdir/site/assets/products.json"
+
+mv "$tmpdir/site" _site
 
 echo "Built Cloudflare Pages artifact in _site/"
