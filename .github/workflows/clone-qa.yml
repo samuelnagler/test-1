@@ -1,0 +1,158 @@
+name: Clone visual QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - '404.html'
+      - 'app.js'
+      - 'styles.css'
+      - 'assets/**'
+      - 'assets-web/**'
+      - '.github/workflows/clone-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for Pages deployment
+        shell: bash
+        run: |
+          for i in {1..30}; do
+            if curl -fsSL --max-time 15 'https://samuelnagler.github.io/test-1/' | grep -q 'noindex,nofollow'; then
+              echo 'Preview deployment is current.'
+              exit 0
+            fi
+            sleep 5
+          done
+          echo 'Preview did not expose the expected marker in time.' >&2
+          exit 1
+      - name: Install browser dependencies
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium
+          python3 -m pip install --quiet pillow
+      - name: Capture original and clone
+        env:
+          ORIGINAL: https://samuelnagler.com
+          CLONE: https://samuelnagler.github.io/test-1
+        run: |
+          cat > qa.mjs <<'JS'
+          import { chromium } from 'playwright';
+          import fs from 'fs';
+          const original=process.env.ORIGINAL, clone=process.env.CLONE;
+          const cases=[['home','/'],['works','/collections/prints'],['product-animals','/products/animals'],['contact','/pages/contact'],['home-de','/de']];
+          const views=[['desktop',{width:1440,height:900},false],['mobile',{width:390,height:844},true]];
+          fs.mkdirSync('qa-out',{recursive:true});
+          const browser=await chromium.launch({headless:true});
+          const report={generatedAt:new Date().toISOString(),cases:{}};
+          async function load(page,url){
+            await page.goto(url,{waitUntil:'domcontentloaded',timeout:60000});
+            await page.waitForTimeout(1800);
+            await page.evaluate(async()=>{const step=Math.max(350,Math.floor(innerHeight*.7));for(let y=0;y<document.body.scrollHeight;y+=step){scrollTo(0,y);await new Promise(r=>setTimeout(r,80));}scrollTo(0,0);});
+            await page.waitForTimeout(700);
+          }
+          async function facts(page){return await page.evaluate(()=>({
+            title:document.title,
+            description:document.querySelector('meta[name="description"]')?.content||'',
+            robots:document.querySelector('meta[name="robots"]')?.content||'',
+            canonical:document.querySelector('link[rel="canonical"]')?.href||'',
+            h1:[...document.querySelectorAll('h1')].map(x=>x.innerText.trim()).filter(Boolean),
+            links:[...document.querySelectorAll('a[href]')].map(a=>({text:(a.innerText||a.getAttribute('aria-label')||'').trim(),href:a.href})),
+            images:[...document.images].map(i=>({alt:i.alt,src:i.currentSrc||i.src,ok:i.complete&&i.naturalWidth>0,w:i.naturalWidth,h:i.naturalHeight})),
+            buttons:[...document.querySelectorAll('button')].map(b=>({text:(b.innerText||b.getAttribute('aria-label')||'').trim(),disabled:b.disabled})),
+            bodyHeight:document.documentElement.scrollHeight,
+            bodyWidth:document.documentElement.scrollWidth
+          }));}
+          for(const [name,path] of cases){
+            report.cases[name]={};
+            for(const [view,viewport,mobile] of views){
+              report.cases[name][view]={};
+              for(const [side,base] of [['original',original],['clone',clone]]){
+                const context=await browser.newContext({viewport,isMobile:mobile,deviceScaleFactor:1,locale:'en-US'});
+                const page=await context.newPage();
+                const errors=[];
+                page.on('pageerror',e=>errors.push('pageerror: '+e.message));
+                page.on('requestfailed',r=>errors.push('requestfailed: '+r.url()+' '+(r.failure()?.errorText||'')));
+                try{
+                  await load(page,base+path);
+                  const f=await facts(page); f.errors=errors.slice(0,30); f.url=page.url();
+                  await page.screenshot({path:`qa-out/${name}-${view}-${side}.png`,fullPage:true});
+                  report.cases[name][view][side]=f;
+                  if(view==='mobile'&&name==='home'){
+                    const ariaMenu=page.locator('button[aria-label*="menu" i],button[aria-label*="menü" i]').first();
+                    const textMenu=page.locator('button').filter({hasText:/menu|☰/i}).first();
+                    const target=(await ariaMenu.count())?ariaMenu:textMenu;
+                    if(await target.count()){
+                      try{await target.click();await page.waitForTimeout(350);await page.screenshot({path:`qa-out/${name}-${view}-${side}-menu-open.png`,fullPage:false});report.cases[name][view][side].menuClick='ok';}
+                      catch(e){report.cases[name][view][side].menuClick='fail: '+e.message;}
+                    } else report.cases[name][view][side].menuClick='missing';
+                  }
+                }catch(e){report.cases[name][view][side]={url:base+path,error:String(e),errors};}
+                await context.close();
+              }
+            }
+          }
+          await browser.close();
+          fs.writeFileSync('qa-out/dom-report.json',JSON.stringify(report,null,2));
+          JS
+          node qa.mjs
+      - name: Compute visual diffs
+        run: |
+          cat > diff.py <<'PY'
+          from PIL import Image, ImageChops
+          from pathlib import Path
+          import json
+          root=Path('qa-out'); summary={}
+          for op in sorted(root.glob('*-original.png')):
+              stem=op.name[:-len('-original.png')]; cp=root/(stem+'-clone.png')
+              if not cp.exists(): continue
+              a=Image.open(op).convert('RGB'); b=Image.open(cp).convert('RGB')
+              w=max(a.width,b.width); h=max(a.height,b.height)
+              aa=Image.new('RGB',(w,h),'white'); bb=Image.new('RGB',(w,h),'white'); aa.paste(a,(0,0)); bb.paste(b,(0,0))
+              d=ImageChops.difference(aa,bb)
+              gray=d.convert('L').point(lambda p:255 if p>24 else 0)
+              changed=sum(1 for p in gray.getdata() if p)
+              ratio=changed/(w*h); bbox=gray.getbbox()
+              summary[stem]={'width':w,'height':h,'changedPixels':changed,'diffPixelRatio':ratio,'bbox':bbox}
+              maxw=720; scale=maxw/w if w>maxw else 1
+              nw=max(1,round(w*scale)); nh=max(1,round(h*scale))
+              ar=aa.resize((nw,nh)); br=bb.resize((nw,nh))
+              sheet=Image.new('RGB',(nw*2,nh),'white'); sheet.paste(ar,(0,0)); sheet.paste(br,(nw,0))
+              sheet.save(root/(stem+'-side-by-side.jpg'),quality=82,optimize=True)
+          (root/'visual-summary.json').write_text(json.dumps(summary,indent=2))
+          print(json.dumps(summary,indent=2))
+          PY
+          python3 diff.py | tee qa-out/visual-summary.log
+      - name: Functional assertions
+        run: |
+          python3 - <<'PY'
+          import json,sys
+          r=json.load(open('qa-out/dom-report.json')); issues=[]
+          for case,views in r['cases'].items():
+              for view,sides in views.items():
+                  c=sides.get('clone',{})
+                  if c.get('error'): issues.append(f'{case}/{view}: load error {c["error"]}')
+                  broken=[i for i in c.get('images',[]) if not i.get('ok')]
+                  if broken: issues.append(f'{case}/{view}: {len(broken)} broken images')
+                  if not c.get('h1') and case not in ('home','home-de'): issues.append(f'{case}/{view}: missing H1')
+                  if c.get('bodyWidth',0)>({'desktop':1440,'mobile':390}[view])+2: issues.append(f'{case}/{view}: horizontal overflow {c.get("bodyWidth")}')
+          m=r['cases']['home']['mobile']['clone'].get('menuClick')
+          if m!='ok': issues.append('home/mobile: menu '+str(m))
+          open('qa-out/assertions.txt','w').write('\n'.join(issues) if issues else 'PASS\n')
+          print('\n'.join(issues) if issues else 'PASS')
+          if issues: sys.exit(1)
+          PY
+      - name: Upload QA artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clone-qa-${{ github.sha }}
+          path: qa-out/
+          retention-days: 7
